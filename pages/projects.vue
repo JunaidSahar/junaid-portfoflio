@@ -1,29 +1,50 @@
 <template>
-  <main v-if="!loading" class="flex flex-col flex-auto lg:flex-row overflow-hidden">
-
+  <main
+    v-if="!loading"
+    class="flex flex-col flex-auto lg:flex-row overflow-hidden"
+  >
     <div id="mobile-page-title">
       <h2>_projects</h2>
     </div>
 
     <!-- section title (mobile) -->
-    <div id="section-content-title" class="flex lg:hidden" @click="hiddeSection()">
-      <img class="section-arrow" src="/icons/arrow.svg">
+    <div
+      id="section-content-title"
+      class="flex lg:hidden"
+      @click="hiddeSection()"
+    >
+      <img class="section-arrow" src="/icons/arrow.svg" />
       <p class="font-fira_regular text-white text-sm">projects</p>
     </div>
-    
-    <div id="filter-menu" class="w-full flex-col border-right font-fira_regular text-menu-text hidden lg:flex">
+
+    <div
+      id="filter-menu"
+      class="w-full flex-col border-right font-fira_regular text-menu-text hidden lg:flex"
+    >
       <!-- title -->
-      <div id="section-content-title" class="hidden lg:flex items-center min-w-full">
-        <img id="section-arrow-menu" src="/icons/arrow.svg" alt="" class="section-arrow mx-3 open">
+      <div
+        id="section-content-title"
+        class="hidden lg:flex items-center min-w-full"
+      >
+        <img
+          id="section-arrow-menu"
+          src="/icons/arrow.svg"
+          alt=""
+          class="section-arrow mx-3 open"
+        />
         <p class="font-fira_regular text-white text-sm">projects</p>
       </div>
 
       <!-- filter menu -->
       <nav id="filters" class="w-full flex-col">
-  
         <div v-for="tech in techs" :key="tech" class="flex items-center py-2">
-          <input type="checkbox" :id="tech" @click="filterProjects(tech)">
-          <img :id="'icon-tech-' + tech" :src="'/icons/techs/' + tech + '.svg'" alt="" class="tech-icon w-5 h-5 mx-4">
+          <input type="checkbox" :id="tech" @click="filterProjects(tech)" />
+          <img
+            :id="'icon-tech-' + tech"
+            :src="'/icons/techs/' + tech + '.svg'"
+            alt=""
+            class="tech-icon w-5 h-5 mx-4"
+          />
           <span :id="'title-tech-' + tech">{{ tech }}</span>
         </div>
       </nav>
@@ -32,71 +53,112 @@
     <!-- content -->
 
     <div class="flex flex-col w-full overflow-hidden">
-      
       <!-- windows tab -->
       <div class="tab-height w-full hidden lg:flex border-bot items-center">
         <div class="flex items-center border-right h-full">
-          <p v-for="filter in filters" :key="filter" class="font-fira_regular text-menu-text text-sm px-3">{{ filter }};</p>
-          <img src="/icons/close.svg" alt="" class="m-3">
+          <p
+            v-for="filter in filters"
+            :key="filter"
+            class="font-fira_regular text-menu-text text-sm px-3"
+          >
+            {{ filter }};
+          </p>
+          <img src="/icons/close.svg" alt="" class="m-3" />
         </div>
       </div>
 
       <!-- windows tab mobile -->
       <div id="tab" class="flex lg:hidden items-center">
-          <span class="text-white"> // </span>
-          <p class="font-fira_regular text-white text-sm px-3">projects</p>
-          <span class="text-menu-text"> / </span>
-          <p v-for="filter in filters" :key="filter" class="font-fira_regular text-menu-text text-sm px-3">{{ filter }};</p>
+        <span class="text-white"> // </span>
+        <p class="font-fira_regular text-white text-sm px-3">projects</p>
+        <span class="text-menu-text"> / </span>
+        <p
+          v-for="filter in filters"
+          :key="filter"
+          class="font-fira_regular text-menu-text text-sm px-3"
+        >
+          {{ filter }};
+        </p>
       </div>
 
       <!-- projects -->
-      <div id="projects-case" class="grid grid-cols-1 lg:grid-cols-2 max-w-full h-full overflow-scroll lg:self-center">
-        <div id="not-found" class="hidden flex flex-col font-fira_retina text-menu-text my-5 h-full justify-center items-center">
-          <span class="flex justify-center text-4xl pb-3">
-            X__X
-          </span>
+      <div
+        id="projects-case"
+        class="grid grid-cols-1 lg:grid-cols-2 max-w-full h-full overflow-scroll lg:self-center"
+      >
+        <div
+          id="not-found"
+          class="hidden flex flex-col font-fira_retina text-menu-text my-5 h-full justify-center items-center"
+        >
+          <span class="flex justify-center text-4xl pb-3"> X__X </span>
           <span class="text-white flex justify-center text-xl">
             No matching projects
           </span>
-          <span class="flex justify-center">
-            for these technologies
-          </span>
+          <span class="flex justify-center"> for these technologies </span>
         </div>
 
-        <div id="project" v-for="(project, key, index) in projects" :key="key" class="lg:mx-5">
+        <div
+          id="project"
+          v-for="(project, key, index) in projects"
+          :key="key"
+          class="lg:mx-5"
+        >
           <!-- title -->
           <span class="flex text-sm my-3">
-            <h3 v-if="index == null" class="text-purplefy font-fira_bold mr-3">Project {{ key + 1 }}</h3>
-            <h3 v-else class="text-purplefy font-fira_bold mr-3">Project {{ index + 1 }}</h3>
-            <h4 class="font-fira_retina text-menu-text"> // {{ project.title }}</h4>
+            <h3 v-if="index == null" class="text-purplefy font-fira_bold mr-3">
+              Project {{ key + 1 }}
+            </h3>
+            <h3 v-else class="text-purplefy font-fira_bold mr-3">
+              Project {{ index + 1 }}
+            </h3>
+            <h4 class="font-fira_retina text-menu-text">
+              // {{ project.title }}
+            </h4>
           </span>
 
           <!-- info -->
-          <div id="project-card" class="flex flex-col">
+          <div id="project-card" class="flex flex-col h-[490px]">
             <div id="window">
               <div class="absolute flex right-3 top-3">
-                <img v-for="tech in project.tech" :key="tech" :src="'/icons/techs/filled/' + tech + '.svg'" alt="" class="w-6 h-6 mx-1 hover:opacity-75">
+                <img
+                  v-for="tech in project.tech"
+                  :key="tech"
+                  :src="'/icons/techs/filled/' + tech + '.svg'"
+                  alt=""
+                  class="w-6 h-6 mx-1 hover:opacity-75"
+                />
               </div>
-              <img id="showcase" :src="project.img" alt="" class="">
+              <img id="showcase" :src="project.img" alt="alnafi" />
             </div>
 
-            <div class="pb-8 pt-6 px-6 border-top">
-              <p class="text-menu-text font-fira_retina text-sm mb-5">
-                {{ project.description }}
-              </p>
-              <a id="view-button" :href="project.url" target="_blank" class="text-white font-fira_retina py-2 px-4 w-fit text-xs rounded-lg">
+            <div
+              class="pb-8 pt-6 px-6 border-top flex flex-col justify-between h-full"
+            >
+              <div>
+                <p
+                  class="text-menu-text font-fira_retina text-sm mb-5"
+                  v-html="project.description"
+                ></p>
+              </div>
+              <div>
+                <a
+                  id="view-button"
+                  :href="project.url"
+                  target="_blank"
+                  class="text-white font-fira_retina py-2 px-4 w-fit text-xs rounded-lg"
+                >
                   view-project
-              </a>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </div>
-</main>
+    </div>
+  </main>
 </template>
 
 <style>
-
 #filters {
   padding: 10px 25px;
 }
@@ -128,8 +190,8 @@
 }
 
 #project-card {
-  border: 1px solid #1E2D3D;
-  background-color: #011221;
+  border: 1px solid #1e2d3d;
+  background-color: #0c0c0c;
   border-radius: 15px;
   max-width: 400px;
   /* max-height: 315px; */
@@ -141,15 +203,15 @@
 }
 
 #view-button {
-  background-color: #1C2B3A;
+  background-color: #1c2b3a;
 }
 
 #view-button:hover {
-  background-color: #263B50;
+  background-color: #263b50;
 }
 
 #window {
-  max-height: 120px;
+  max-height: 180px;
   position: relative;
   overflow: hidden;
 }
@@ -247,16 +309,16 @@ input[type="checkbox"]:focus {
 <script>
 export default {
   setup() {
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig();
     return {
-      config
-    }
+      config,
+    };
   },
   data() {
     return {
-      techs: ['React', 'HTML', 'CSS', 'Vue', 'Angular', 'Gatsby', 'Flutter'],
-      filters: ['all'],
-      projects: '',
+      techs: ["Vue"],
+      filters: ["all"],
+      projects: "",
       loading: true,
     };
   },
@@ -266,35 +328,36 @@ export default {
   },
   methods: {
     filterProjects(tech) {
-
-      document.getElementById('icon-tech-' + tech).classList.toggle('active'); // change tech icon opacity
-      document.getElementById('title-tech-' + tech).classList.toggle('active'); // change tech text color
+      document.getElementById("icon-tech-" + tech).classList.toggle("active"); // change tech icon opacity
+      document.getElementById("title-tech-" + tech).classList.toggle("active"); // change tech text color
 
       const check = document.getElementById(tech);
       if (check.checked) {
-        this.filters = this.filters.filter((item) => item !== 'all'); // remove 'all' from filters
-        this.filters.push(tech) // add tech to filters
+        this.filters = this.filters.filter((item) => item !== "all"); // remove 'all' from filters
+        this.filters.push(tech); // add tech to filters
       } else {
         this.filters = this.filters.filter((item) => item !== tech); // remove tech from filters
-        this.filters.length === 0 ? this.filters.push('all') : null; // add 'all' to filters if filters is empty
+        this.filters.length === 0 ? this.filters.push("all") : null; // add 'all' to filters if filters is empty
       }
-      this.filters[0] == 'all' ? this.projects = this.config.public.dev.projects : this.projects = this.filterProjectsBy(this.filters);
+      this.filters[0] == "all"
+        ? (this.projects = this.config.public.dev.projects)
+        : (this.projects = this.filterProjectsBy(this.filters));
 
-      if(this.projects.length === 0){
+      if (this.projects.length === 0) {
         // set flex to projects-case
-        document.getElementById('projects-case').classList.remove('grid');
-        document.getElementById('not-found').classList.remove('hidden');
-        
-      }else{
+        document.getElementById("projects-case").classList.remove("grid");
+        document.getElementById("not-found").classList.remove("hidden");
+      } else {
         // set grid to projects-case
-        document.getElementById('projects-case').classList.add('grid');
-        document.getElementById('not-found').classList.add('hidden');
+        document.getElementById("projects-case").classList.add("grid");
+        document.getElementById("not-found").classList.add("hidden");
       }
-      
     },
     hiddeSection() {
-      document.getElementById('filter-menu').classList.toggle('hidden');
-      document.getElementsByClassName('section-arrow')[0].classList.toggle('rotate-90');
+      document.getElementById("filter-menu").classList.toggle("hidden");
+      document
+        .getElementsByClassName("section-arrow")[0]
+        .classList.toggle("rotate-90");
     },
     /**
      * * Filter projects by techs
@@ -304,11 +367,10 @@ export default {
      */
     filterProjectsBy(filters) {
       const projectArray = Object.values(this.config.public.dev.projects);
-      return projectArray.filter(project => {
-        return filters.some(filter => project.tech.includes(filter)); // change here your condition 'some' or 'every'
+      return projectArray.filter((project) => {
+        return filters.some((filter) => project.tech.includes(filter)); // change here your condition 'some' or 'every'
       });
     },
   },
 };
-
 </script>
